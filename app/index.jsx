@@ -5,8 +5,8 @@ require("./index.css")
 
 import React from "react"
 import TestRunner from "./test-runner"
-import {tests} from "./resources/sample-data"
+import {specs} from "./resources/sample-data"
 
 document.addEventListener("DOMContentLoaded", function () {
-  React.render(<TestRunner tests={tests} />, document.body)
+  React.render(<TestRunner specs={specs} />, document.body)
 })

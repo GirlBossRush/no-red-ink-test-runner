@@ -1,5 +1,5 @@
 {
-  "tests": [
+  "specs": [
     { "description": "commas are rotated properly"},
     { "description": "exclamation points stand up straight"},
     { "description": "run-on sentences don't run forever"},

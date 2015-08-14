@@ -1,12 +1,24 @@
 import React from "react"
 import Test from "./test"
 
+function uniqueID () {
+  return Math.random().toString(36).substring(7)
+}
+
+function specToTest(spec, index) {
+  return {
+    id: uniqueID(),
+    description: spec.description,
+    status: "unstarted"
+  }
+}
+
 class TestRunner extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      tests: props.tests
+      tests: props.specs.map(specToTest)
     }
   }
 
@@ -19,14 +31,24 @@ class TestRunner extends React.Component {
   }
 
   renderTests() {
-    return this.state.tests.map(function (test, index) {
-      return <Test key={index} spec={test} />
-    })
+    return this.state.tests.map(function (test) {
+      return <Test {...test} onCompletion={this.updateTest.bind(this)} key={test.id} />
+    }.bind(this))
+  }
+
+  updateTest(result) {
+    let
+      {tests} = this.state,
+      index = tests.findIndex(test => test.id === result.id)
+
+    tests[index].status = result.status
+
+    this.setState({tests})
   }
 }
 
 TestRunner.propTypes = {
-  tests: React.PropTypes.array.isRequired
+  specs: React.PropTypes.array.isRequired
 }
 
 export default TestRunner
