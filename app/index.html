@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+  <head>
+    <title>{%=o.htmlWebpackPlugin.options.meta.title%}</title>
+    <script>
+      document.documentElement.classList.remove("no-js")
+    </script>
+
+    <meta charset="utf-8">
+  </head>
+
+  <body spellcheck>
+    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+      <script src="{%= o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
+    {% } %}
+
+    <noscript class="no-js-info">
+      <h1>{%=o.htmlWebpackPlugin.options.meta.title%}</h1>
+
+      <p>This website requires JavaScript to retrieve content.</p>
+
+      <p>
+        <a href="http://enable-javascript.com" target="_blank">
+        How to enable JavaScript.
+        </a>
+      </p>
+    </noscript>
+  </body>
+</html>
+

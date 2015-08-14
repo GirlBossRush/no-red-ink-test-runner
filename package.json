@@ -1,0 +1,33 @@
+{
+  "name": "no-red-ink-test-runner",
+  "version": "0.0.0",
+  "description": "Test Runner for NoRedInk challenge.",
+  "scripts": {
+    "start": "node scripts/watch.js",
+    "build": "NODE_ENV=production webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TeffenEllis/no-red-ink-test-runner.git"
+  },
+  "author": "Eric Ellis",
+  "license": "CC-BY-NC-SA-4.0",
+  "peerDependencies": {
+    "babel-core": "*"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "~2.0.0",
+    "babel-loader": "~5.1.3",
+    "babel-runtime": "~5.4.7",
+    "css-loader": "~0.14.4",
+    "html-webpack-plugin": "~1.4.0",
+    "json-loader": "~0.5.1",
+    "react-hot-loader": "~1.2.7",
+    "style-loader": "~0.12.1",
+    "webpack": "~1.9.10",
+    "webpack-dev-server": "~1.9.0"
+  },
+  "dependencies": {
+    "react": "^0.13.3"
+  }
+}
