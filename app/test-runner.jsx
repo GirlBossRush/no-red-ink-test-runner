@@ -1,9 +1,32 @@
 import React from "react"
+import Test from "./test"
 
-export default class TestRunner extends React.Component {
+class TestRunner extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      tests: props.tests
+    }
+  }
+
   render() {
-    return <div>
-      Hello World!
+    return <div data-component="test-runner">
+      <h1>NoRedInk Test Runner</h1>
+
+      {this.renderTests()}
     </div>
   }
+
+  renderTests() {
+    return this.state.tests.map(function (test, index) {
+      return <Test key={index} spec={test} />
+    })
+  }
 }
+
+TestRunner.propTypes = {
+  tests: React.PropTypes.array.isRequired
+}
+
+export default TestRunner
