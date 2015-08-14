@@ -9,6 +9,7 @@ function specToTest(spec, index) {
   return {
     id: uniqueID(),
     description: spec.description,
+    scheduled: false,
     status: "unstarted"
   }
 }
@@ -46,6 +47,10 @@ class TestRunner extends React.Component {
 
       {this.renderStats()}
 
+      <div className="run-all-tests" onClick={this.runAllTests.bind(this)}>
+        Run all tests
+      </div>
+
       {this.renderTests()}
     </div>
   }
@@ -76,12 +81,21 @@ class TestRunner extends React.Component {
     }.bind(this))
   }
 
+  runAllTests() {
+    let {tests} = this.state
+
+    tests.forEach((test) => test.scheduled = true)
+
+    this.setState({tests})
+  }
+
   updateTest(result) {
     let
       {tests} = this.state,
-      index = tests.findIndex(test => test.id === result.id)
+      test = tests.find(test => test.id === result.id)
 
-    tests[index].status = result.status
+    test.status = result.status
+    test.scheduled = false
 
     this.setState({tests})
   }

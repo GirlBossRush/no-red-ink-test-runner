@@ -8,6 +8,12 @@ const STATUS = {
 }
 
 class Test extends React.Component {
+  componentWillReceiveProps(props) {
+    if (props.scheduled) {
+      this.runTest()
+    }
+  }
+
   render() {
     const {description, status} = this.props
 
@@ -39,6 +45,7 @@ Test.propTypes = {
   description: React.PropTypes.string.isRequired,
   id: React.PropTypes.string.isRequired,
   onStatusChange: React.PropTypes.func.isRequired,
+  scheduled: React.PropTypes.bool.isRequired,
   status: React.PropTypes.string.isRequired
 }
 
