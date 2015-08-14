@@ -9,9 +9,10 @@ const STATUS = {
 
 class Test extends React.Component {
   render() {
-    let {description, status} = this.props
+    const {description, status} = this.props
 
     return <div data-component="test">
+      <div onClick={this.runTest.bind(this)}>Run</div>
       <div>
         {STATUS[status]}
       </div>
@@ -21,12 +22,23 @@ class Test extends React.Component {
       </p>
     </div>
   }
+
+  runTest() {
+    const
+      {id, onStatusChange} = this.props,
+      delay = 7000 + Math.random() * 7000,
+      status = Math.random() > 0.5 ? 'passed' : 'failed'
+
+    onStatusChange({id, status: 'running'})
+
+    setTimeout(() => onStatusChange({id, status}), delay)
+  }
 }
 
 Test.propTypes = {
   description: React.PropTypes.string.isRequired,
   id: React.PropTypes.string.isRequired,
-  onCompletion: React.PropTypes.func.isRequired,
+  onStatusChange: React.PropTypes.func.isRequired,
   status: React.PropTypes.string.isRequired
 }
 
