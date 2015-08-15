@@ -1,5 +1,6 @@
 import React from "react"
 import Test from "./test"
+import * as STATUS_LABELS from "resources/status-labels"
 
 function uniqueID () {
   return Math.random().toString(36).substring(7)
@@ -24,21 +25,23 @@ class TestRunner extends React.Component {
   }
 
   getStats() {
-    const {tests} = this.state
+    const
+      {tests} = this.state,
+      statuses = [
+        'failed',
+        'passed',
+        'running',
+        'unstarted'
+      ]
 
-    return [{
-      label: "Failed",
-      count: tests.filter((test) => test.status === 'failed').length
-    }, {
-      label: "Passed",
-      count: tests.filter((test) => test.status === 'passed').length
-    }, {
-      label: "Running",
-      count: tests.filter((test) => test.status === 'running').length
-    }, {
-      label: "Unstarted",
-      count: tests.filter((test) => test.status === 'unstarted').length
-    }]
+    function statusToStat(status) {
+      return {
+        label: status,
+        count: tests.filter((test) => test.status === status).length
+      }
+    }
+
+    return statuses.map(statusToStat)
   }
 
   render() {
@@ -47,9 +50,9 @@ class TestRunner extends React.Component {
 
       {this.renderStats()}
 
-      <div className="run-all-tests" onClick={this.runAllTests.bind(this)}>
+      <button className="run-all-tests" onClick={this.runAllTests.bind(this)}>
         Run all tests
-      </div>
+      </button>
 
       {this.renderTests()}
     </div>
@@ -58,20 +61,21 @@ class TestRunner extends React.Component {
   renderStats() {
     const
       stats = this.getStats(),
-      runningStat = stats.find((stat) => stat.label === 'Running'),
-      unstartedStat = stats.find((stat) => stat.label === 'Unstarted')
+      runningStat = stats.find((stat) => stat.label === 'running'),
+      unstartedStat = stats.find((stat) => stat.label === 'unstarted')
 
     const entries = stats.map(function(entry, index) {
-      return <span key={index}>
-        {entry.label} - {entry.count}
+      return <span className="stat" data-status={entry.label} key={index}>
+        {STATUS_LABELS[entry.label]} - {entry.count}
       </span>
     })
 
-    const stateLabel = unstartedStat.count === 0 && runningStat.count === 0 ? 'Finished!' : ''
+    const stateLabel = unstartedStat.count === 0 && runningStat.count === 0 ? '- Finished!' : ''
 
     return <div className="test-stats">
-      <h2>Stats {stateLabel}</h2>
-      {entries}
+      <div className="stats">
+        {entries} {stateLabel}
+      </div>
     </div>
   }
 

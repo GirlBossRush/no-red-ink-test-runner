@@ -1,11 +1,5 @@
 import React from "react"
-
-const STATUS = {
-  "failed": "Failed",
-  "passed": "Passed",
-  "running": "Running",
-  "unstarted": "Not Started Yet"
-}
+import * as STATUS_LABELS from "resources/status-labels"
 
 class Test extends React.Component {
   componentWillReceiveProps(props) {
@@ -18,14 +12,17 @@ class Test extends React.Component {
     const {description, status} = this.props
 
     return <div data-component="test">
-      <div onClick={this.runTest.bind(this)}>Run</div>
-      <div>
-        {STATUS[status]}
-      </div>
+      <button onClick={this.runTest.bind(this)}>Run</button>
 
       <p>
         {description}
       </p>
+
+      <aside className="details">
+        <div className="status" data-status={status}>
+          {STATUS_LABELS[status]}
+        </div>
+      </aside>
     </div>
   }
 
@@ -35,9 +32,11 @@ class Test extends React.Component {
       delay = 7000 + Math.random() * 7000,
       status = Math.random() > 0.5 ? 'passed' : 'failed'
 
+    clearTimeout(this.testTimeout)
+
     onStatusChange({id, status: 'running'})
 
-    setTimeout(() => onStatusChange({id, status}), delay)
+    this.testTimeout = setTimeout(() => onStatusChange({id, status}), delay)
   }
 }
 

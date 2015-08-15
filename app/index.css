@@ -1,0 +1,55 @@
+[data-component="test-runner"] {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+[data-component="test-runner"] .test-stats .stats {
+  align-items: center;
+  display: flex;
+}
+
+[data-component="test-runner"] .test-stats .stat + .stat {
+  margin-left: 20px;
+}
+
+[data-component="test"] {
+  align-items: center;
+  background-color: #eee;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 10px 5px;
+}
+
+[data-component="test"]:nth-child(odd) {
+  background-color: #EEE8DD;
+}
+
+[data-component="test"] .details {
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: flex-end;
+}
+
+[data-status] {
+  border-radius: 2px;
+  color: white;
+  display: inline;
+  font-weight: bold;
+  padding: 5px;
+}
+
+[data-status="failed"] {
+  background-color: red;
+}
+
+[data-status="passed"] {
+  background-color: green;
+}
+
+[data-status="running"] {
+  background-color: purple;
+}
+
+[data-status="unstarted"] {
+  background-color: black;
+}

@@ -1,0 +1,6 @@
+{
+  "failed": "Failed",
+  "passed": "Passed",
+  "running": "Running",
+  "unstarted": "Not Started Yet"
+}
