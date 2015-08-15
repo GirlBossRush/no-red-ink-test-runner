@@ -43,7 +43,7 @@ exports.resolve = {
 
 exports.module = {
   loaders: [
-    {test: /\.css$/, loader: "style-loader?singleton!css-loader"},
+    {test: /\.css$/, loader: "style-loader?singleton!css-loader!autoprefixer"},
     {test: /\.json$/, loader: "json-loader", exclude: [/node_modules/]},
     {test: /\.js$/, loader: "babel-loader?optional=runtime", exclude: [/node_modules/]}
   ],
